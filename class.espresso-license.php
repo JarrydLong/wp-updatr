@@ -20,9 +20,9 @@ class EspressoLicensing{
 		) ) );
 
 		if( !is_wp_error( $request ) ){
-			var_dump($request);
+			
 			$response = wp_remote_retrieve_body( $request );
-			var_dump($response);
+		
 			$response = json_decode( $response );
 
 			return $response;
