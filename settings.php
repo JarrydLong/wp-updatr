@@ -6,7 +6,7 @@
 				<th><?php _e('My API Key', 'espresso-licensing'); ?></th>
 				<td>
 					<input type='text' name='el_api_key' value='<?php echo get_option( 'espresso_licensing_api_key' ); ?>' style='width: 50%;' /> 
-					<p class='description'><?php echo espresso_licensing_validate_api_key() ? __('Your API Key is Valid', 'espresso-licnesing') : __('Your API Key is Invalid', 'espresso-licnesing'); ?></p>
+					<p class='description'><?php echo espresso_licensing_validate_api_key() ? __('Your API Key is Valid', 'espresso-licensing') : __('Your API Key is Invalid', 'espresso-licensing'); ?></p>
 				</td>
 			</tr>
 			<tr>
