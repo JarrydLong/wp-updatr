@@ -1,5 +1,5 @@
 <?php
-function espresso_licensing_pmpro_level_settings() {
+function wp_updatr_pmpro_level_settings() {
 
 	$level_id = 0;
 
@@ -7,7 +7,7 @@ function espresso_licensing_pmpro_level_settings() {
 		if( $_REQUEST['edit'] < 0 ){
 			//New level
 		} else {
-			$level_options = get_option( 'espresso_licensing_levels_'.intval( $_REQUEST['edit'] ) );
+			$level_options = get_option( 'wp_updatr_levels_'.intval( $_REQUEST['edit'] ) );
 		}
 	}
 
@@ -17,19 +17,19 @@ function espresso_licensing_pmpro_level_settings() {
 
 		$product_key = $level_options['key'];
 
-		$espresso = new EspressoLicensing();
+		$wpupdatr = new WP_Updatr();
 
-		if( $espresso->verify_product( $product_key ) ){
-			$verify_text = __('Valid', 'espresso-licensing');
+		if( $wpupdatr->verify_product( $product_key ) ){
+			$verify_text = __('Valid', 'wp-updatr');
 		} else {
-			$verify_text = __('Invalid', 'espresso-licensing');
+			$verify_text = __('Invalid', 'wp-updatr');
 		}
 
 	}
 
 	?>
 	<hr />
-	<h3><?php esc_html_e( 'Espresso Licensing Settings', 'espresso-licensing' ); ?></h3>
+	<h3><?php esc_html_e( 'WP Updatr Settings', 'wp-updatr' ); ?></h3>
 	<p class="description">
 		<?php
 			$espress_allowed_link = array(
@@ -39,65 +39,65 @@ function espresso_licensing_pmpro_level_settings() {
 					'title' => array(),
 				),
 			);
-			echo sprintf( wp_kses( __( 'Link your Paid Memberships Pro levels to your Espresso Licensing products. Alternatively, <a href="%s" title="Register Now" target="_blank">Register for a Free Trial today</a>.', 'espresso-licensing' ), $espress_allowed_link ), 'https://espressolicensing.com/?utm_source=plugin&utm_medium=pmpro-membershiplevels&utm_campaign=add-ons&utm_content=pmpro-roles' );
+			echo sprintf( wp_kses( __( 'Link your Paid Memberships Pro levels to your WP Updatr products. Alternatively, <a href="%s" title="Register Now" target="_blank">Register Now</a>.', 'wp-updatr' ), $espress_allowed_link ), '<UPDATE URL HERE>?utm_source=plugin&utm_medium=pmpro-membershiplevels&utm_campaign=add-ons&utm_content=pmpro-roles' );
 		?>
 	</p>
 	<table class="form-table">
 		<tbody>
 			<tr>
-				<th><?php echo __('Product Key', 'espresso-licensing') .' - '.$verify_text; ?></th>
+				<th><?php echo __('Product Key', 'wp-updatr') .' - '.$verify_text; ?></th>
 				<td>
-					<input type='text' name='espresso_product_key' value='<?php if( isset( $level_options['key'] ) ){ echo $level_options['key']; } ?>' class='regular_text'/>
-					<p class="description"><?php _e('Login to your Espresso Licensing account and navigate to "Products" to obtain a product key.', 'espresso-licensing'); ?></p>
+					<input type='text' name='wp_updatr_product_key' value='<?php if( isset( $level_options['key'] ) ){ echo $level_options['key']; } ?>' class='regular_text'/>
+					<p class="description"><?php echo wp_updatr_descriptions( 'key' ); ?></p>
 				</td>
 			</tr>
 			<tr>
-				<th><?php _e('Site Limit', 'espresso-licensing'); ?></th>
+				<th><?php _e('Site Limit', 'wp-updatr'); ?></th>
 				<td>
-					<input type='text' name='espresso_licence_limit' value='<?php if( isset( $level_options['limit'] ) ){ echo $level_options['limit']; } ?>' class='regular_text'/>
-					<p class="description"><?php _e('The maximum number of sites allowed to use a licence key. Leave empty or set to 0 for unlimited.', 'espresso-licnesing'); ?></p>
-			</td>
+					<input type='text' name='wp_updatr_limit' value='<?php if( isset( $level_options['limit'] ) ){ echo $level_options['limit']; } ?>' class='regular_text'/>
+					<p class="description"><?php echo wp_updatr_descriptions( 'limit' ); ?></p>
+				</td>
 			</tr>
 		</tbody>
 	</table>
 	<?php
 }
-add_action( 'pmpro_membership_level_after_other_settings', 'espresso_licensing_pmpro_level_settings', 10 );
+add_action( 'pmpro_membership_level_after_other_settings', 'wp_updatr_pmpro_level_settings', 10 );
 
-function espresso_licensing_pmpro_edit_level( $saveid ){
+function wp_updatr_pmpro_edit_level( $saveid ){
 
-	if( isset( $_REQUEST['espresso_product_key'] ) ){
+	if( isset( $_REQUEST['wp_updatr_product_key'] ) ){
 
-		$license_key = sanitize_text_field( $_REQUEST['espresso_product_key'] );
-		$site_limit = intval( $_REQUEST['espresso_licence_limit'] );
+		$license_key = sanitize_text_field( $_REQUEST['wp_updatr_product_key'] );
+		$site_limit = intval( $_REQUEST['wp_updatr_limit'] );
 
-		update_option( 'espresso_licensing_levels_'.$saveid, array( 'key' => $license_key, 'limit' => $site_limit ) );
+		update_option( 'wp_updatr_levels_'.$saveid, array( 'key' => $license_key, 'limit' => $site_limit ) );
 	}
 }
-add_action( 'pmpro_save_membership_level', 'espresso_licensing_pmpro_edit_level', 10, 1 );
+add_action( 'pmpro_save_membership_level', 'wp_updatr_pmpro_edit_level', 10, 1 );
 
-function espresso_licensing_pmpro_delete_level( $delete_id ){
+function wp_updatr_pmpro_delete_level( $delete_id ){
 
-	delete_option( 'espresso_licensing_levels_'.$saveid );
-
-}
-add_action( 'pmpro_delete_membership_level', 'espresso_licensing_pmpro_delete_level', 10, 1 );
-
-function espresso_licensing_pmpro_after_checkout( $user_id, $morder ){
-
-	espresso_licensing_pmpro_setup_api_keys( $morder );
+	delete_option( 'wp_updatr_levels_'.$saveid );
 
 }
-add_action( 'pmpro_after_checkout', 'espresso_licensing_pmpro_after_checkout', 10, 2 );
+add_action( 'pmpro_delete_membership_level', 'wp_updatr_pmpro_delete_level', 10, 1 );
 
-function espresso_licensing_pmpro_renewals( $morder ){
+function wp_updatr_pmpro_after_checkout( $user_id, $morder ){
 
-	espresso_licensing_pmpro_setup_api_keys( $morder, true );
+	wp_updatr_pmpro_setup_api_keys( $morder );
 
 }
-add_action( 'pmpro_subscription_payment_completed', 'espresso_licensing_pmpro_renewals', 10, 1 );
+add_action( 'pmpro_after_checkout', 'wp_updatr_pmpro_after_checkout', 10, 2 );
 
-function espresso_licensing_pmpro_fails( $morder ){
+function wp_updatr_pmpro_renewals( $morder ){
+
+	wp_updatr_pmpro_setup_api_keys( $morder, true );
+
+}
+add_action( 'pmpro_subscription_payment_completed', 'wp_updatr_pmpro_renewals', 10, 1 );
+
+function wp_updatr_pmpro_fails( $morder ){
 
 	global $wpdb;
 
@@ -107,19 +107,19 @@ function espresso_licensing_pmpro_fails( $morder ){
 
 	$membership_id = $morder->membership_id;
 
-	$level_options = get_option( 'espresso_licensing_levels_'.$morder->membership_id );
+	$level_options = get_option( 'wp_updatr_levels_'.$morder->membership_id );
 
-	$espresso = new EspressoLicensing();
+	$wpupdatr = new WP_Updatr();
 
 	if( !empty( $level_options ) ){
 
 		foreach( $recent_transactions as $recent ){
 
-			$license_key = espresso_licensing_pmpro_get_license_key( $recent->notes );
+			$license_key = wp_updatr_pmpro_get_license_key( $recent->notes );
 
 			if( $license_key ){
 
-				$api_key = $espresso->cancel_purchase( $level_options['key'], $license_key );
+				$api_key = $wpupdatr->cancel_purchase( $level_options['key'], $license_key );
 
 			}
 		}
@@ -127,10 +127,10 @@ function espresso_licensing_pmpro_fails( $morder ){
 	}
 
 }
-add_action( 'pmpro_subscription_payment_failed', 'espresso_licensing_pmpro_fails', 10, 1 );
-add_action( 'pmpro_stripe_subscription_deleted', 'espresso_licensing_pmpro_fails', 10, 1 );
+add_action( 'pmpro_subscription_payment_failed', 'wp_updatr_pmpro_fails', 10, 1 );
+add_action( 'pmpro_stripe_subscription_deleted', 'wp_updatr_pmpro_fails', 10, 1 );
 
-function espresso_licensing_pmpro_setup_api_keys( $morder, $renewals = false ){
+function wp_updatr_pmpro_setup_api_keys( $morder, $renewals = false ){
 
 	global $wpdb;
 
@@ -138,7 +138,7 @@ function espresso_licensing_pmpro_setup_api_keys( $morder, $renewals = false ){
 
 	$level_id = $morder->membership_id;
 
-	$level_options = get_option( 'espresso_licensing_levels_'.$level_id );
+	$level_options = get_option( 'wp_updatr_levels_'.$level_id );
 
     $product_key = isset( $level_options['key'] ) ? $level_options['key'] : '';
 
@@ -168,9 +168,9 @@ function espresso_licensing_pmpro_setup_api_keys( $morder, $renewals = false ){
 
    	if( !empty( $product_key ) ){
 
-   		$espresso = new EspressoLicensing();
+   		$wpupdatr = new WP_Updatr();
 
-        $api_key = $espresso->process_purchase( $product_key, $lifespan_days, $renewals, $site_limit, 'active' );
+        $api_key = $wpupdatr->process_purchase( $product_key, $lifespan_days, $renewals, $site_limit, 'active' );
 
         $notes = "";
 		$notes .= "\n---\n";
@@ -187,7 +187,7 @@ function espresso_licensing_pmpro_setup_api_keys( $morder, $renewals = false ){
 
 }
 
-function espresso_licensing_pmpro_get_license_key( $order_notes ){
+function wp_updatr_pmpro_get_license_key( $order_notes ){
 
 	$value = pmpro_getMatches( "/{LICENSE_KEY:([^}]*)}/", $order_notes, true );
 	
@@ -195,9 +195,9 @@ function espresso_licensing_pmpro_get_license_key( $order_notes ){
 
 }
 
-function espresso_licensing_pmpro_display_confirmation( $morder ){
+function wp_updatr_pmpro_display_confirmation( $morder ){
 	?>
-	<li><strong><?php _e('API Key', 'paid-memberships-pro' );?>:</strong> <?php echo espresso_licensing_pmpro_get_license_key( $morder->notes ); ?></li>
+	<li><strong><?php _e('API Key', 'wp-updatr' );?>:</strong> <?php echo wp_updatr_pmpro_get_license_key( $morder->notes ); ?></li>
 	<?php
 }
-add_action( 'pmpro_invoice_bullets_bottom', 'espresso_licensing_pmpro_display_confirmation', 10, 1 );
+add_action( 'pmpro_invoice_bullets_bottom', 'wp_updatr_pmpro_display_confirmation', 10, 1 );
