@@ -170,7 +170,7 @@ function wp_updatr_pmpro_setup_api_keys( $morder, $renewals = false ){
 
    		$wpupdatr = new WP_Updatr();
 
-        $api_key = $wpupdatr->process_purchase( $product_key, $lifespan_days, $renewals, $site_limit, 'active' );
+        $api_key = $wpupdatr->process_purchase( $product_key, $lifespan_days, $renewals, $site_limit, 'active', $morder->code );
 
         $notes = "";
 		$notes .= "\n---\n";

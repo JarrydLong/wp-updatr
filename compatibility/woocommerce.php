@@ -20,7 +20,7 @@ function wp_updatr_woo_create_activation( $order_id ){
 
        		$site_limit = get_post_meta( $product_id, 'wp_updatr_licence_limit', true );
 
-	        $api_key = $wpupdatr->process_purchase( $product_key, $lifespan_days, false, $site_limit, 'active' );
+	        $api_key = $wpupdatr->process_purchase( $product_key, $lifespan_days, false, $site_limit, 'active', $order_id );
 
 	        if( $api_key ){
 				$api_keys[$product_id] = $api_key;

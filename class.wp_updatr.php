@@ -25,11 +25,7 @@ class WP_Updatr{
 		
 			$response = json_decode( $response );
 
-			if( !empty( $response->code ) && $response->code == 200 ){
-				return $response;
-			} 
-
-			return false;
+			return $response;
 
 		}
 
@@ -248,7 +244,7 @@ class WP_Updatr{
 	/**
 	 * Statuses available: active | inactive
 	 */
-	public function process_purchase( $product_key, $days, $extend, $site_limit, $status = 'active' ){
+	public function process_purchase( $product_key, $days, $extend, $site_limit, $status = 'active', $order_number ){
 
 		$request = wp_remote_post( $this->api_url.'process-purchase/', array( 'body' => array(
 			'api_key' => $this->api_key,
@@ -256,7 +252,8 @@ class WP_Updatr{
 			'status' => $status,
 			'days' => $days,
 			'extend' => $extend,
-			'limit' => $site_limit //0 or empty is unlimited
+			'limit' => $site_limit, //0 or empty is unlimited
+			'order_number' => $order_number
 		) ) );
 
 		if( !is_wp_error( $request ) ){
@@ -265,11 +262,8 @@ class WP_Updatr{
 
 			$response = json_decode( $response );
 
-			if( is_bool( $response ) ){
-				return $response;	
-			}
-			
-			return false;
+			return $response;	
+
 		}
 
 		return false;

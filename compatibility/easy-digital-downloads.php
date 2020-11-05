@@ -80,7 +80,7 @@ function wp_updatr_edd_order_complete( $payment_id ) {
 
 	       		$site_limit = get_post_meta( $product_id, 'wp_updatr_edd_limit', true );
 
-		        $api_key = $wpupdatr->process_purchase( $product_key, $lifespan_days, false, $site_limit, 'active' );
+		        $api_key = $wpupdatr->process_purchase( $product_key, $lifespan_days, false, $site_limit, 'active', $payment_id );
 
 		        if( $api_key ){
 					$api_keys[$product_id] = $api_key;
