@@ -16,7 +16,7 @@ function wp_updatr_woo_create_activation( $order_id ){
 
        	if( !empty( $product_key ) ){
 
-       		$lifespan_days = get_post_meta( $product_id, 'wp_updatr_licence_lifespan', true );
+       		$lifespan_days = intval( get_post_meta( $product_id, 'wp_updatr_licence_lifespan', true ) );
 
        		$site_limit = get_post_meta( $product_id, 'wp_updatr_licence_limit', true );
 
@@ -174,6 +174,9 @@ function wp_updatr_woo_save_fields( $id, $post ){
 		} else {
 			update_post_meta( $id, 'wp_updatr_product_key_valid', false );
 		}
+
+		update_post_meta( $id, 'wp_updatr_licence_lifespan', intval( $_POST['wp_updatr_licence_lifespan'] ) );
+		update_post_meta( $id, 'wp_updatr_licence_limit', intval( $_POST['wp_updatr_licence_limit'] ) );
 
 	} else {
 		delete_post_meta( $id, 'wp_updatr_product_key' );

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WP Updatr
- * Description: Making it easy to launch and support paid WordPress products by integrating with WooCommerce, Paid Memberships Pro & Easy Digital Downloads to generate API Keys/Product Licenses for your customers.
+ * Description: Making it easy to launch and support paid WordPress products by integrating with WooCommerce, Paid Memberships Pro & Easy Digital Downloads allowing your customers to update your plugin through their dashboard.
  * Author: WP Updatr
  * Author URI: https://wpupdatr.com/
  * Version: 1.0.0

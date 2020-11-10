@@ -5,7 +5,7 @@ class WP_Updatr{
 	function __construct(){
 
 		$this->api_key = get_option( 'wp_updatr_api_key');
-		$this->api_url = 'https://app.espressolicensing.com/wp-json/wp-updatr/v1/';
+		$this->api_url = 'https://app.wpupdatr.com/wp-json/wp-updatr/v1/';
 		$this->platform = get_option( 'wp_updatr_integration' );
 
 	}

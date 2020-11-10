@@ -30,6 +30,6 @@
 	<p class='description'>
 		WP Updatr | 
 		<a href='' target='_BLANK'><?php _e('Documentation', 'wp-updatr'); ?></a> | 
-		<a href='' target='_BLANK'><?php _e('Get 30% Off Our Unlimited Plan', 'wp-updatr'); ?></a>
+		<a href='' target='_BLANK'><?php _e('Sign Up For Our Unlimited Plan', 'wp-updatr'); ?></a>
 	</p>
 </div>
