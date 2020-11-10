@@ -29,7 +29,7 @@
 	<hr/>
 	<p class='description'>
 		WP Updatr | 
-		<a href='' target='_BLANK'><?php _e('Documentation', 'wp-updatr'); ?></a> | 
-		<a href='' target='_BLANK'><?php _e('Sign Up For Our Unlimited Plan', 'wp-updatr'); ?></a>
+		<a href='https://wpupdatr.com/documentation/' target='_BLANK'><?php _e('Documentation', 'wp-updatr'); ?></a> | 
+		<a href='https://app.wpupdatr.com/membership-account/membership-checkout/?level=4' target='_BLANK'><?php _e('Sign Up For Our Professional Plan', 'wp-updatr'); ?></a>
 	</p>
 </div>

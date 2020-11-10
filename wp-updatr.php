@@ -91,8 +91,8 @@ function wp_updatr_descriptions( $key ){
 function pmproama_plugin_row_meta( $links, $file ) {
 	if ( strpos( $file, 'wp-updatr.php' ) !== false ) {
 		$new_links = array(
-			'<a href="' . esc_url( 'http://wpupdatr.com/' ) . '" title="' . esc_attr( __( 'View Documentation', 'wp-updatr' ) ) . '">' . __( 'Docs', 'wp-updatr' ) . '</a>',
-			'<a href="' . esc_url( 'http://wpupdatr.com/' ) . '" title="' . esc_attr( __( 'Support', 'wp-updatr' ) ) . '">' . __( 'Support', 'wp-updatr' ) . '</a>',
+			'<a href="' . esc_url( 'https://wpupdatr.com/documentation/' ) . '" title="' . esc_attr( __( 'View Documentation', 'wp-updatr' ) ) . '">' . __( 'Docs', 'wp-updatr' ) . '</a>',
+			'<a href="' . esc_url( 'https://wpupdatr.com/support/' ) . '" title="' . esc_attr( __( 'Support', 'wp-updatr' ) ) . '">' . __( 'Support', 'wp-updatr' ) . '</a>',
 		);
 		$links = array_merge( $links, $new_links );
 	}
@@ -111,7 +111,7 @@ function wp_updatr_add_plugin_action_link( $links ) {
 			'<a href="' . get_admin_url( null, 'options-general.php?page=wp-updatr-settings' ) . '">' . __( 'Settings', 'wp-updatr' ) . '</a>',
 		);
 		if( !get_option( 'wp_updatr_api_key' ) ){
-			$new_links[] = '<a href="" target="_BLANK">' . __( 'Get 30% Off Our Unlimited Plan', 'wp-updatr' ) . '</a>';
+			$new_links[] = '<a href="https://app.wpupdatr.com/membership-account/membership-checkout/?level=4" target="_BLANK">' . __( 'Sign Up For Our Professional Plan', 'wp-updatr' ) . '</a>';
 		}
 	}
 	return array_merge( $new_links, $links );
@@ -128,7 +128,7 @@ function wp_updatr_admin_notice() {
 	if ( !get_option( 'wp_updatr_api_key' ) ) { ?>
 		<div class="updated is-dismissible">
 			<p><?php 
-				_e( 'Thank you for using WP Updatr. <a href="'.get_admin_url( null, 'options-general.php?page=wp-updatr-settings' ).'">Get Started</a> by linking your website and products to the WP Updatr service. <a href="" target="_BLANK">Get 30% Off Our Unlimited Plan</a>', 'wp-updatr' ); ?></p>
+				_e( 'Thank you for using WP Updatr. <a href="'.get_admin_url( null, 'options-general.php?page=wp-updatr-settings' ).'">Get Started</a> by linking your website and products to the WP Updatr service. <a href="https://app.wpupdatr.com/membership-account/membership-checkout/?level=4" target="_BLANK">Sign Up For Our Professional Plan</a>', 'wp-updatr' ); ?></p>
 		</div>
 		<?php
 	}
