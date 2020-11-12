@@ -1,12 +1,12 @@
 <?php
 
-class EspressoLicensing{
+class WP_Updatr{
 
-	function __construct( $api_key = null ){
+	function __construct(){
 
-		$this->api_key = get_option( 'espresso_licensing_api_key');
-		$this->api_url = 'https://app.espressolicensing.com/wp-json/espresso-licensing/v1/';
-		$this->platform = get_option( 'espresso_licensing_integration' );
+		$this->api_key = get_option( 'wp_updatr_api_key');
+		$this->api_url = 'https://app.wpupdatr.com/wp-json/wp-updatr/v1/';
+		$this->platform = get_option( 'wp_updatr_integration' );
 
 	}
 
@@ -141,7 +141,7 @@ class EspressoLicensing{
 
 		$products = $this->get_product_keys( $this->platform );
 
-		$product_keys = get_option( '_el_'.$this->platform );
+		$product_keys = get_option( '_wpur_'.$this->platform );
 
 		if( !empty( $products ) ){
 
@@ -170,7 +170,7 @@ class EspressoLicensing{
 
 			}
 
-			update_option( '_el_'.$this->platform, $product_keys );
+			update_option( '_wpur_'.$this->platform, $product_keys );
 
 			return $product_keys;
 
@@ -244,15 +244,16 @@ class EspressoLicensing{
 	/**
 	 * Statuses available: active | inactive
 	 */
-	public function process_purchase( $product_key, $days, $extend, $site_limit, $status = 'active' ){
+	public function process_purchase( $product_key, $days, $extend, $site_limit, $status = 'active', $order_number ){
 
-		$request = wp_remote_post( $this->api_url.'process-purchase', array( 'body' => array(
+		$request = wp_remote_post( $this->api_url.'process-purchase/', array( 'body' => array(
 			'api_key' => $this->api_key,
 			'product_key' => $product_key,
 			'status' => $status,
 			'days' => $days,
 			'extend' => $extend,
-			'limit' => $site_limit //0 or empty is unlimited
+			'limit' => $site_limit, //0 or empty is unlimited
+			'order_number' => $order_number
 		) ) );
 
 		if( !is_wp_error( $request ) ){
@@ -261,7 +262,7 @@ class EspressoLicensing{
 
 			$response = json_decode( $response );
 
-			return $response;
+			return $response;	
 
 		}
 
@@ -307,7 +308,7 @@ class EspressoLicensing{
 			if( $response ){
 				return $response;
 			} else {
-				return __('Unavailable', 'espresso-licensing');
+				return __('Unavailable', 'wp-updatr');
 			}
 			
 
