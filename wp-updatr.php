@@ -5,6 +5,8 @@
  * Author: WP Updatr
  * Author URI: https://wpupdatr.com/
  * Version: 1.0.0
+ * Text Domain: wp-updatr
+ * Domain Path: /languages
  */
 
 require_once plugin_dir_path( __FILE__ ).'class.wp_updatr.php';
@@ -111,7 +113,7 @@ function wp_updatr_add_plugin_action_link( $links ) {
 			'<a href="' . get_admin_url( null, 'options-general.php?page=wp-updatr-settings' ) . '">' . __( 'Settings', 'wp-updatr' ) . '</a>',
 		);
 		if( !get_option( 'wp_updatr_api_key' ) ){
-			$new_links[] = '<a href="https://app.wpupdatr.com/membership-account/membership-checkout/?level=4" target="_BLANK">' . __( 'Sign Up For Our Professional Plan', 'wp-updatr' ) . '</a>';
+			$new_links[] = '<a href="https://wpupdatr.com/?utm_source=plugin&utm_medium=wpupdatr-plugin&utm_campaign=plugins-page&utm_content=action-links#pricing" target="_BLANK">' . __( 'Sign Up For Our Professional Plan', 'wp-updatr' ) . '</a>';
 		}
 	}
 	return array_merge( $new_links, $links );
@@ -128,7 +130,7 @@ function wp_updatr_admin_notice() {
 	if ( !get_option( 'wp_updatr_api_key' ) ) { ?>
 		<div class="updated is-dismissible">
 			<p><?php 
-				_e( 'Thank you for using WP Updatr. <a href="'.get_admin_url( null, 'options-general.php?page=wp-updatr-settings' ).'">Get Started</a> by linking your website and products to the WP Updatr service. <a href="https://app.wpupdatr.com/membership-account/membership-checkout/?level=4" target="_BLANK">Sign Up For Our Professional Plan</a>', 'wp-updatr' ); ?></p>
+				_e( 'Thank you for using WP Updatr. <a href="'.get_admin_url( null, 'options-general.php?page=wp-updatr-settings' ).'">Get Started</a> by linking your website and products to the WP Updatr service. <a href="https://wpupdatr.com/?utm_source=plugin&utm_medium=wpupdatr-plugin&utm_campaign=admin-notice&utm_content=prompt#pricing" target="_BLANK">Sign Up For Our Professional Plan</a>', 'wp-updatr' ); ?></p>
 		</div>
 		<?php
 	}

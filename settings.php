@@ -15,7 +15,7 @@
 				<td>
 					<p><input type='radio' name='wpur_integration' value='woocommerce' id='wpur_woocommerce' <?php checked( 'woocommerce', $integration ); ?> /> <label for='wpur_woocommerce'><?php _e( 'WooCommerce', 'wp-updatr' ); ?></label></p>
 					<p><input type='radio' name='wpur_integration' value='paid-memberships-pro' id='wpur_pmpro' <?php checked( 'paid-memberships-pro', $integration ); ?> /> <label for='wpur_pmpro'><?php _e( 'Paid Memberships Pro', 'wp-updatr' ); ?></label></p>
-					<p><input type='radio' name='wpur_integration' value='easy-digital-downloads' id='wpur_pmpro' <?php checked( 'easy-digital-downloads', $integration ); ?> /> <label for='wpur_pmpro'><?php _e( 'Easy Digital Downloads', 'wp-updatr' ); ?></label></p>
+					<p><input type='radio' name='wpur_integration' value='easy-digital-downloads' id='wpur_edd' <?php checked( 'easy-digital-downloads', $integration ); ?> /> <label for='wpur_edd'><?php _e( 'Easy Digital Downloads', 'wp-updatr' ); ?></label></p>
 				</td>
 			</tr>
 			<tr>
