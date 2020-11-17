@@ -58,6 +58,36 @@ add_action( 'save_post', 'wp_updatr_edd_save_post', 99, 1 );
 
 function wp_updatr_edd_order_complete( $payment_id ) {
 
+	wp_updatr_edd_new_api_key( $payment_id );	
+
+}
+add_action( 'edd_complete_purchase', 'wp_updatr_edd_order_complete' );
+
+
+function wp_updatr_edd_payment_status_update( $payment_id, $new_status, $old_status ){
+
+	$revoke_triggers = apply_filters( 'wpupdatr_edd_revoke_triggers_array', array( 'refunded', 'revoked', 'failed' ), $payment_id, $new_status, $old_status );
+
+	if( in_array( $new_status, $revoke_triggers ) ){
+		//Cancel API Key
+		$api_keys = get_post_meta( $payment_id, 'wp_updatr_api_keys', true );
+
+		if( !empty( $api_keys ) ){
+
+			$wpupdatr = new WP_Updatr();
+
+			foreach( $api_keys as $product_id => $api_key ){
+				$product_key = get_post_meta( $product_id, 'wp_updatr_edd_key', true );
+				$wpupdatr->cancel_purchase( $product_key, $api_key );
+			}
+		}
+	}
+
+}
+add_action( 'edd_update_payment_status', 'wp_updatr_edd_payment_status_update', 10, 3 );
+
+function wp_updatr_edd_new_api_key( $payment_id ){
+
 	$wpupdatr = new WP_Updatr();
 	// Basic payment meta
 	$payment_meta = edd_get_payment_meta( $payment_id );
@@ -96,15 +126,6 @@ function wp_updatr_edd_order_complete( $payment_id ) {
 	}
 
 }
-add_action( 'edd_complete_purchase', 'wp_updatr_edd_order_complete' );
-
-
-function wp_updatr_edd_payment_status_update( $payment_id, $new_status, $old_status ){
-
-	$api_keys = get_post_meta( $payment_id, 'wp_updatr_api_keys', true );
-
-}
-add_action( 'edd_update_payment_status', 'wp_updatr_edd_payment_status_update', 10, 3 );
 
 function wp_updatr_edd_show_api_keys_order_details( $payment_id ){
 

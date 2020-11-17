@@ -48,27 +48,30 @@ function wp_updatr_woo_cancel_activation( $order_id ){
 
 	$api_keys = get_post_meta( $order_id, '_wp_updatr_licensing_api_keys', true );
 
-	$wpupdatr = new WP_Updatr();
+	if( !empty( $api_keys ) ){
+
+		$wpupdatr = new WP_Updatr();
 	
-	$order = new WC_Order( $order_id );
+		$order = new WC_Order( $order_id );
 
-	$api_keys = array();
+	 	foreach ( $order->get_items() as $item_id => $product_item ) {
 
- 	foreach ( $order->get_items() as $item_id => $product_item ) {
+	        $product_id = $product_item->get_product_id();
 
-        $product_id = $product_item->get_product_id();
+	        $product_key = get_post_meta( $product_id, 'wp_updatr_product_key', true );
 
-        $product_key = get_post_meta( $product_id, 'wp_updatr_product_key', true );
+	       	if( !empty( $product_key ) ){
 
-       	if( !empty( $product_key ) ){
+	       		$license_key = isset( $api_keys[$product_id] ) ? $api_keys[$product_id] : '';
+	       		
+		        $api_key = $wpupdatr->cancel_purchase( $product_key, $license_key );	     
 
-       		$license_key = isset( $api_keys[$product_id] ) ? $api_keys[$product_id] : '';
+			}
 
-	        $api_key = $wpupdatr->cancel_purchase( $product_key, $license_key );	     
+	    }
 
-		}
-
-    }
+	}
+	
 
 }
 add_action( 'woocommerce_order_status_failed', 'wp_updatr_woo_cancel_activation', 10, 1 );
